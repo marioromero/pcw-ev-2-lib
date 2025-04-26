@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Usuarios</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+</head>
+<body>
+
+<h2>Formulario de Registro</h2>
+
+<form id="formUsuario">
+  <input type="text" name="nombre" id="nombre" placeholder="Nombre"><br><br>
+  <input type="email" name="email" id="email" placeholder="Email"><br><br>
+  <input type="text" name="pais" id="pais" placeholder="País"><br><br>
+  <button type="submit">Registrar</button>
+</form>
+
+<hr>
+
+<h2>Usuarios Registrados</h2>
+
+<table id="tablaUsuarios" class="display">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>País</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<script>
+$(document).ready(function() {
+  // 1. Inicializar DataTable
+  const tabla = $('#tablaUsuarios').DataTable();
+
+  // 2. Activar Autocomplete en país
+  const paises = ["Argentina", "Chile", "Colombia", "México", "Perú", "España"];
+  $('#pais').autocomplete({
+    source: paises
+  });
+
+  // 3. Validación del formulario
+  $('#formUsuario').validate({
+    rules: {
+      nombre: { required: true },
+      email: { required: true, email: true },
+      pais: { required: true }
+    },
+    messages: {
+      nombre: "Ingresa tu nombre",
+      email: {
+        required: "Ingresa tu email",
+        email: "Formato de email no válido"
+      },
+      pais: "Selecciona un país"
+    },
+    submitHandler: function(form) {
+      // Agregar a la tabla
+      const nombre = $('#nombre').val();
+      const email = $('#email').val();
+      const pais = $('#pais').val();
+      
+      tabla.row.add([nombre, email, pais]).draw();
+      
+      // Limpiar formulario
+      form.reset();
+      
+      // Mostrar éxito
+      alertify.success('Usuario registrado exitosamente');
+    },
+    invalidHandler: function() {
+      alertify.error('Por favor completa todos los campos correctamente');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

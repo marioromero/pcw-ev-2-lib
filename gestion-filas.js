@@ -1,6 +1,4 @@
 class MiniTable {
-    static data = []; // ← Aquí se guardarían los objetos
-  
     static _alert(msg) { alert(`MiniTable: ${msg}`); }
     
     static _colCount($table) {
@@ -38,16 +36,11 @@ class MiniTable {
           const id = data.id;
           const $boton = $('<button>')
             .text('Eliminar')
-            .click(() => {
-              if (confirm('¿Seguro que deseas eliminar esta fila?')) {
-                this.eliminarFila(id, tablaId);
-              }
-            });
+            .click(() => this.eliminarFila(id, tablaId));
           $tr.append($('<td>').append($boton));
         }
   
         $table.find('tbody').append($tr);
-        this.data.push(data); // ← AGREGA EL OBJETO AL ARRAY
       } catch (e) {
         this._alert(e.message);
       }
@@ -63,9 +56,6 @@ class MiniTable {
         );
         if (!$row.length) return this._alert(`No se encontró fila con id = ${idValor}`);
         $row.remove();
-  
-        // Elimina también del array interno
-        this.data = this.data.filter(obj => obj.id != idValor);
       } catch (e) {
         this._alert(e.message);
       }
