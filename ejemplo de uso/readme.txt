@@ -1,4 +1,5 @@
-Métodos disponibles
+Métodos disponibles:
+
 1. MiniTable.agregarFila(data, tablaId)
 
 Descripción:
@@ -20,9 +21,6 @@ Si ocurre un error, muestra un alert() informativo.
 
 Ejemplo de uso:
 
-javascript
-Copiar
-Editar
 const persona = {
   id: 101,
   nombre: "Ana Gómez",
@@ -31,6 +29,8 @@ const persona = {
 };
 
 MiniTable.agregarFila(persona, 'miTabla');
+
+
 2. MiniTable.eliminarFila(idValor, tablaId)
 Descripción:
 Elimina la fila de la tabla cuyo valor en la columna id coincida con el valor entregado.
@@ -51,9 +51,6 @@ Si no la encuentra, muestra un alert() de error.
 
 Ejemplo de uso:
 
-javascript
-Copiar
-Editar
 MiniTable.eliminarFila(101, 'miTabla');
 Consideraciones Técnicas
 Si la tabla no existe o los parámetros son incorrectos, el error se notifica mediante alert.
